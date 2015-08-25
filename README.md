@@ -4,7 +4,6 @@ IBM Bluemix Mobile Services - Hello World sample
 This is a Hello World sample for IBM Bluemix Mobile Services. Use it as a starting point
 to confirm that you're able to connect to your Bluemix Nodejs backend.
 
-
 ###Supported Levels
 The package is supported on Android API level 15 and up
  
