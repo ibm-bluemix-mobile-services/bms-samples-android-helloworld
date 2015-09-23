@@ -1,4 +1,4 @@
-package com.ibm.helloworld_android;
+package com.ibm.bms.samples.android.helloworld;
 
 import android.app.Activity;
 import android.content.Intent;

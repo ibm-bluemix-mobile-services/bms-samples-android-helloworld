@@ -1,4 +1,4 @@
-package com.ibm.helloworld_android;
+package com.ibm.bms.samples.android.helloworld;
 
 import android.app.Activity;
 import android.graphics.Color;
@@ -31,8 +31,7 @@ public class MainActivity extends Activity implements ResponseListener {
         try {
             //initialize SDK with IBM Bluemix application ID and route
             //TODO: Please replace <APPLICATION_ROUTE> with a valid ApplicationRoute and <APPLICATION_ID> with a valid ApplicationId
-            //Example:
-            //BMSClient.getInstance().initialize(this, "<APPLICATION_ROUTE>", "<APPLICATION_ID>");
+            BMSClient.getInstance().initialize(this, "<APPLICATION_ROUTE>", "<APPLICATION_ID>");
         }
         catch (MalformedURLException mue) {
             this.setStatus(mue.getMessage() + "\nPlease ensure you are using the correct Application Route and Application Id and rebuild the app", false);
