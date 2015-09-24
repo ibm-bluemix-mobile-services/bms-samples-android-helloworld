@@ -1,5 +1,4 @@
-# HelloWorld application for
-# IBM MobileFirst Services on IBM Bluemix
+# HelloWorld application for IBM Bluemix Mobile Services
 ---
 The HelloWorld sample contains an Android project that you can use to learn and build upon.  
 ### Downloading the samples and acquiring Android Development Tools
@@ -9,12 +8,12 @@ Clone the sample from IBM DevOps Services with the following command:
 git clone https://github.com/ibm-bluemix-mobile-services/bms-samples-android-helloworld
 ```
 
-If you have not done so already, at this time please acquire and install [Android Studio](https://developer.android.com/sdk/index.html) as well as [Gradle](http://gradle.org/)
+If you have not done so already, at this time please acquire and install [Android Studio](https://developer.android.com/sdk/index.html) as well as [Gradle](http://gradle.org/).
 
 
 ### Configure the front end in the HelloWorld sample
-1. Using Android Studio, navigate to the bms-samples-android-helloworld directory where the project was cloned
-2. If this is your first time importing a project into Android Studio you will be prompted to define a GRADLE HOME path variable. Set that path to the directory extracted from the Gradle .zip file where the 'bin' directory lives. The 'build.gradle' file will automatically build your project, pulling in the required dependencies
+1. Using Android Studio, navigate to the bms-samples-android-helloworld directory where the project was cloned.
+2. If this is your first time importing a project into Android Studio you will be prompted to define a GRADLE HOME path variable. Set that path to the directory extracted from the Gradle .zip file where the 'bin' directory lives. The 'build.gradle' file will automatically build your project, pulling in the required dependencies.
 3. After Gradle has completed synching, open MainActivity.java and locate the try block within the ```onCreate()``` function.
 4. In the ```BMSClient.getInstance().initialize()``` function replace <APPLICATION_ROUTE> and <APPLICATION_ID> with the application route and ID you were given when creating your application on Bluemix.
 ```java
@@ -34,7 +33,7 @@ Note: Inside the ViewController a Get request is made to a protected resource on
 
 
 ###Supported Levels
-The sample is supported on Android API level 17 and up
+The sample is supported on Android API level 17 and up.
 
 
 ### License
