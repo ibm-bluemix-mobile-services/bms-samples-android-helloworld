@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.ibm.mobilefirstplatform.clientsdk.android.core.api.BMSClient;
 import com.ibm.mobilefirstplatform.clientsdk.android.core.api.Response;
 import com.ibm.mobilefirstplatform.clientsdk.android.core.api.ResponseListener;
-import com.ibm.mobilefirstplatform.clientsdk.android.security.api.AuthorizationManager;
+import com.ibm.mobilefirstplatform.clientsdk.android.core.api.Request;
 
 import org.json.JSONObject;
 
@@ -24,8 +24,8 @@ public class MainActivity extends Activity implements ResponseListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        this.adjustTypefaceForMainView();
 
+        this.adjustTypefaceForMainView();
         TextView buttonText = (TextView) findViewById(R.id.button_text);
 
         try {
@@ -49,7 +49,10 @@ public class MainActivity extends Activity implements ResponseListener {
         TextView errorText = (TextView) findViewById(R.id.error_text);
         errorText.setText("");
 
-        AuthorizationManager.getInstance().obtainAuthorizationHeader(this, this);
+        //Testing the connection to Bluemix by sending a Get request to a protected resource in the Node.js application.
+        // This Node.js code was provided in the MobileFirst Services Starter boilerplate.
+        // The below request uses the applicationRoute that was provided when initializing the BMSClient in the onCreate.
+        new Request(BMSClient.getInstance().getBluemixAppRoute() + "/protected", Request.GET).send(this);
     }
 
     private void adjustTypefaceForMainView () {
@@ -65,7 +68,7 @@ public class MainActivity extends Activity implements ResponseListener {
         buttonText.setTypeface(IBMFont);
     }
 
-    private void setStatus(final String text, boolean wasSuccessful){
+    private void setStatus(final String messageText, boolean wasSuccessful){
         final TextView errorText = (TextView) findViewById(R.id.error_text);
         final TextView topText = (TextView) findViewById(R.id.top_text);
         final TextView bottomText = (TextView) findViewById(R.id.bottom_text);
@@ -79,7 +82,7 @@ public class MainActivity extends Activity implements ResponseListener {
             public void run() {
                 buttonText.setBackgroundColor(Color.parseColor(buttonDefaultColor));
                 buttonText.setClickable(true);
-                errorText.setText(text);
+                errorText.setText(messageText);
                 topText.setText(topStatus);
                 bottomText.setText(bottomStatus);
             }
@@ -93,14 +96,21 @@ public class MainActivity extends Activity implements ResponseListener {
 
     @Override
     public void onFailure(Response response, Throwable throwable, JSONObject jsonObject) {
-        String errorMessage = "Authorization Process Failed With Unknown Error.";
+        String errorMessage = "";
+
+        if (response != null) {
+            errorMessage += response.toString() + "\n";
+        }
 
         if (throwable != null) {
             StringWriter sw = new StringWriter();
             PrintWriter pw = new PrintWriter(sw);
             throwable.printStackTrace(pw);
-            errorMessage = sw.toString();
+            errorMessage += sw.toString() + "\n";
         }
+
+        if (errorMessage.isEmpty())
+            errorMessage = "Authorization Process Failed With Unknown Error.";
 
         setStatus(errorMessage, false);
     }
