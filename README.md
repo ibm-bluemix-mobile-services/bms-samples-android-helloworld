@@ -1,10 +1,13 @@
-# HelloWorld application for IBM MobileFirst Services on IBM Bluemix
+# HelloWorld application for
+# IBM MobileFirst Services on IBM Bluemix
 ---
 The HelloWorld sample contains an Android project that you can use to learn and build upon.  
 ### Downloading the samples and acquiring Android Development Tools
 Clone the sample from IBM DevOps Services with the following command:
 
+```bash
 git clone https://github.com/ibm-bluemix-mobile-services/bms-samples-android-helloworld
+```
 
 If you have not done so already, at this time please acquire and install [Android Studio](https://developer.android.com/sdk/index.html) as well as [Gradle](http://gradle.org/)
 
