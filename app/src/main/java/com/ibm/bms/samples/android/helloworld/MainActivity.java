@@ -17,6 +17,7 @@ import org.json.JSONObject;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.MalformedURLException;
+import java.net.UnknownHostException;
 
 public class MainActivity extends Activity implements ResponseListener {
 
@@ -34,7 +35,7 @@ public class MainActivity extends Activity implements ResponseListener {
             BMSClient.getInstance().initialize(this, "<APPLICATION_ROUTE>", "<APPLICATION_ID>");
         }
         catch (MalformedURLException mue) {
-            this.setStatus(mue.getMessage() + "\nPlease ensure you are using the correct Application Route and Application Id and rebuild the app", false);
+            this.setStatus("Unable to parse Application Route URL\n Please verify you have entered your Application Route and Id correctly and rebuild the app", false);
             buttonText.setClickable(false);
         }
     }
@@ -99,14 +100,23 @@ public class MainActivity extends Activity implements ResponseListener {
         String errorMessage = "";
 
         if (response != null) {
-            errorMessage += response.toString() + "\n";
+            if (response.getStatus() == 404) {
+                errorMessage += "Application Route not found at:\n" + BMSClient.getInstance().getBluemixAppRoute() +
+                        "\nPlease verify your Application Route and rebuild the app.";
+            } else {
+                errorMessage += response.toString() + "\n";
+            }
         }
 
         if (throwable != null) {
-            StringWriter sw = new StringWriter();
-            PrintWriter pw = new PrintWriter(sw);
-            throwable.printStackTrace(pw);
-            errorMessage += sw.toString() + "\n";
+            if (throwable.getClass().equals(UnknownHostException.class)) {
+                errorMessage = "Unable to access Bluemix host!\nPlease verify internet connectivity and try again.";
+            } else {
+                StringWriter sw = new StringWriter();
+                PrintWriter pw = new PrintWriter(sw);
+                throwable.printStackTrace(pw);
+                errorMessage += "THROWN" + sw.toString() + "\n";
+            }
         }
 
         if (errorMessage.isEmpty())

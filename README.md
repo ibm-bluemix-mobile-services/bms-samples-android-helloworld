@@ -15,7 +15,7 @@ If you have not done so already, at this time please acquire and install [Androi
 1. Using Android Studio, navigate to the bms-samples-android-helloworld directory where the project was cloned.
 2. If this is your first time importing a project into Android Studio you will be prompted to define a GRADLE HOME path variable. Set that path to the directory extracted from the Gradle .zip file where the 'bin' directory lives. The 'build.gradle' file will automatically build your project, pulling in the required dependencies.
 3. After Gradle has completed synching, open MainActivity.java and locate the try block within the ```onCreate()``` function.
-4. In the ```BMSClient.getInstance().initialize()``` function replace <APPLICATION_ROUTE> and <APPLICATION_ID> with the application route and ID you were given when creating your application on Bluemix.
+4. In the ```BMSClient.getInstance().initialize()``` function replace ```<APPLICATION_ROUTE>``` and ```<APPLICATION_ID>``` with the application route and ID you were given when creating your application on Bluemix.
 ```java
 		try {
             //initialize SDK with IBM Bluemix application ID and route
