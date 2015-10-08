@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">HelloWorld</string>
+    <string name="app_name">Hello Bluemix</string>
     <string name="action_settings">Settings</string>
     <string name="BluemixLogo">bluemix_logo.png</string>
     <string name="Copyright">Copyright © 2015 IBM. All rights reserved.</string>
