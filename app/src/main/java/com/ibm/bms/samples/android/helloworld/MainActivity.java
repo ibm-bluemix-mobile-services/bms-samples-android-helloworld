@@ -53,7 +53,7 @@ public class MainActivity extends Activity implements ResponseListener {
         //Testing the connection to Bluemix by sending a Get request to a protected resource in the Node.js application.
         // This Node.js code was provided in the MobileFirst Services Starter boilerplate.
         // The below request uses the applicationRoute that was provided when initializing the BMSClient in the onCreate.
-        new Request(BMSClient.getInstance().getBluemixAppRoute() + "/protected", Request.GET).send(this);
+        new Request(BMSClient.getInstance().getBluemixAppRoute() + "/protected", Request.GET).send(this.getApplicationContext(), this);
     }
 
     private void adjustTypefaceForMainView () {
