@@ -1,9 +1,23 @@
 package com.ibm.bms.samples.android.helloworld;
+/**
+ * Copyright 2015 IBM Corp. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 import android.app.Activity;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -19,14 +33,18 @@ import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.UnknownHostException;
 
-public class MainActivity extends Activity implements ResponseListener {
+/**
+ * Main Activity implements Response listener for http request call back handling.
+ */
+public class MainActivity extends Activity implements ResponseListener{
+
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        this.adjustTypefaceForMainView();
         TextView buttonText = (TextView) findViewById(R.id.button_text);
 
         try {
@@ -40,33 +58,25 @@ public class MainActivity extends Activity implements ResponseListener {
         }
     }
 
+    /**
+     * Called when ping bluemix button is pressed.
+     * Attempt to access Bluemix backend to ensure proper set up.
+     * @param view the button pressed.
+     */
     public void pingBluemix(View view) {
-        final String buttonWaitColor = "#ff00AED3";
 
         TextView buttonText = (TextView) findViewById(R.id.button_text);
-        buttonText.setBackgroundColor(Color.parseColor(buttonWaitColor));
         buttonText.setClickable(false);
 
         TextView errorText = (TextView) findViewById(R.id.error_text);
-        errorText.setText("");
+        errorText.setText("Pinging Bluemix");
 
-        //Testing the connection to Bluemix by sending a Get request to a protected resource in the Node.js application.
+        Log.i(TAG, "Pinging Bluemix");
+
+        // Testing the connection to Bluemix by sending a Get request to the Node.js application, using this Activity to handle the response.
         // This Node.js code was provided in the MobileFirst Services Starter boilerplate.
-        // The below request uses the applicationRoute that was provided when initializing the BMSClient in the onCreate.
-        new Request(BMSClient.getInstance().getBluemixAppRoute() + "/protected", Request.GET).send(this.getApplicationContext(), this);
-    }
-
-    private void adjustTypefaceForMainView () {
-        Typeface IBMFont = Typeface.createFromAsset(getAssets(), "fonts/helvetica-neue-light.ttf");
-
-        TextView errorText = (TextView) findViewById(R.id.error_text);
-        errorText.setTypeface(IBMFont);
-        TextView topText = (TextView) findViewById(R.id.top_text);
-        topText.setTypeface(IBMFont);
-        TextView bottomText = (TextView) findViewById(R.id.bottom_text);
-        bottomText.setTypeface(IBMFont);
-        TextView buttonText = (TextView) findViewById(R.id.button_text);
-        buttonText.setTypeface(IBMFont);
+        // The below request uses the IBM Mobile First Core sdk to send the request using the applicationRoute that was provided when initializing the BMSClient earlier.
+        new Request(BMSClient.getInstance().getBluemixAppRoute(), Request.GET).send(this.getApplicationContext(), this);
     }
 
     private void setStatus(final String messageText, boolean wasSuccessful){
@@ -74,14 +84,12 @@ public class MainActivity extends Activity implements ResponseListener {
         final TextView topText = (TextView) findViewById(R.id.top_text);
         final TextView bottomText = (TextView) findViewById(R.id.bottom_text);
         final TextView buttonText = (TextView) findViewById(R.id.button_text);
-        final String buttonDefaultColor = "#ff1CB299";
         final String topStatus = wasSuccessful ? "Yay!" : "Bummer";
         final String bottomStatus = wasSuccessful ? "You Are Connected" : "Something Went Wrong";
 
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                buttonText.setBackgroundColor(Color.parseColor(buttonDefaultColor));
                 buttonText.setClickable(true);
                 errorText.setText(messageText);
                 topText.setText(topStatus);
@@ -90,11 +98,14 @@ public class MainActivity extends Activity implements ResponseListener {
         });
     }
 
+    // Implemented for the response listener to handle the success response when Bluemix is pinged
     @Override
     public void onSuccess(Response response) {
         setStatus("", true);
+        Log.i(TAG, "Successfully pinged Bluemix!");
     }
 
+    // Implemented for the response listener to handle failure response when Bluemix is pinged
     @Override
     public void onFailure(Response response, Throwable throwable, JSONObject jsonObject) {
         String errorMessage = "";
@@ -120,8 +131,9 @@ public class MainActivity extends Activity implements ResponseListener {
         }
 
         if (errorMessage.isEmpty())
-            errorMessage = "Authorization Process Failed With Unknown Error.";
+            errorMessage = "Request Failed With Unknown Error.";
 
         setStatus(errorMessage, false);
+        Log.e(TAG, "Get request to Bluemix failed: " + errorMessage);
     }
 }

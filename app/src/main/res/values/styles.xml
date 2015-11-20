@@ -1,7 +1,0 @@
-<resources>
-
-    <style name="PingButton">
-        <item name="android:textColor">@drawable/button_response</item>
-    </style>
-
-</resources>
