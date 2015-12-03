@@ -34,7 +34,10 @@ Create a mobile backend in the  Bluemix dashboard:
 
 ### Configure the front end in the HelloWorld sample
 1. Using Android Studio, open the `bms-samples-android-helloworld` directory where the project was cloned.
-2. Android Studio with then kick off a Gradle sync to pull in the required IBM Mobile first dependencies (see `bms-samples-android-helloworld\app\build.gradle` for more info).
+2. Run a Gradle sync (usually starts automatically) to import the required `core` SDK. You can view the **build.gradle** file in the following directory:
+
+	`app\build.gradle`
+	
 3. Once that is complete, open `MainActivity.java` and locate the try block within the ```onCreate()``` function.
 4. In the ```BMSClient.getInstance().initialize()``` function replace ```<APPLICATION_ROUTE>``` and ```<APPLICATION_ID>``` with the application route and ID you were given when creating your application on Bluemix.
 ```java
@@ -45,12 +48,14 @@ Create a mobile backend in the  Bluemix dashboard:
         }
 ```
 
+>**Note**: This sample depends on 1.+ version of the Core SDK. This means that the most recent 1.* version will be downloaded automatically. When creating a production applications it is recommended to define the version explicitly (1.0.0 for example) to ensure consistent builds.
+
 ### Run the Android App
 Now you can run your Android Application in your mobile emulator or on your device.
 
 You will see a single view application with a "PING BLUEMIX" button. When you click this button the application will test the connection from the client to the backend Bluemix application. The application uses the ApplicationRoute specified in the AppDelegate in order to test the connection. The application will then display if the connection was successful or unsuccessful. In the unsuccessful state an error will be displayed in the log as well as in the application.
 
-**Note**: Inside the **Main Activity** a Get request is made to the Node.js runtime on Bluemix. This code has been provided in the MobileFirst Services Starter boilerplate. If the backend application was not created using the MobileFirst Services Starter boilerplate the application will not be able to connect successfully.
+>**Note**: Inside the **Main Activity** a Get request is made to the Node.js runtime on Bluemix. This code has been provided in the MobileFirst Services Starter boilerplate. If the backend application was not created using the MobileFirst Services Starter boilerplate the application will not be able to connect successfully.
 
 
 ###Supported Levels
