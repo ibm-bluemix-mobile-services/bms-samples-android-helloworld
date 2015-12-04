@@ -49,6 +49,7 @@ public class MainActivity extends Activity implements ResponseListener{
 
         try {
             //initialize SDK with IBM Bluemix application ID and route
+            // You can find your backendRoute and backendGUID in the Mobile Options section on top of your Bluemix application dashboard
             //TODO: Please replace <APPLICATION_ROUTE> with a valid ApplicationRoute and <APPLICATION_ID> with a valid ApplicationId
             BMSClient.getInstance().initialize(this, "<APPLICATION_ROUTE>", "<APPLICATION_ID>");
         }
@@ -69,16 +70,21 @@ public class MainActivity extends Activity implements ResponseListener{
         buttonText.setClickable(false);
 
         TextView errorText = (TextView) findViewById(R.id.error_text);
-        errorText.setText("Pinging Bluemix");
+        errorText.setText("Attempting to Connect");
 
-        Log.i(TAG, "Pinging Bluemix");
+        Log.i(TAG, "Attempting to Connect");
 
         // Testing the connection to Bluemix by sending a Get request to the Node.js application, using this Activity to handle the response.
         // This Node.js code was provided in the MobileFirst Services Starter boilerplate.
         // The below request uses the IBM Mobile First Core sdk to send the request using the applicationRoute that was provided when initializing the BMSClient earlier.
-        new Request(BMSClient.getInstance().getBluemixAppRoute(), Request.GET).send(this.getApplicationContext(), this);
+        new Request(BMSClient.getInstance().getBluemixAppRoute(), Request.GET).send(this, this);
     }
 
+	/**
+     * Updates text fields in the UI
+     * @param messageText String that displays in center text box
+     * @param wasSuccessful Boolean that decides appropriate text to display
+     */
     private void setStatus(final String messageText, boolean wasSuccessful){
         final TextView errorText = (TextView) findViewById(R.id.error_text);
         final TextView topText = (TextView) findViewById(R.id.top_text);
