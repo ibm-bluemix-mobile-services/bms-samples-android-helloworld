@@ -1,30 +1,30 @@
-# Android helloWorld application for Bluemix Mobile Services
+# Android hellobluemix application for Bluemix Mobile Services
 ---
-This helloWorld sample contains an Android project that you can use to learn more about Bluemix Mobile Services.
+This hellobluemix sample contains an Android project that you can use to learn more about Bluemix Mobile Services.
 
-Use the following steps to configure the helloWorld sample for Android:
+Use the following steps to configure the hellobluemix sample for Android:
 
-1. [Download the helloWorld sample](#download-the-helloworld-sample)
-2. [Configure the mobile backend for your helloWorld application](#configure-the-mobile-backend-for-your-helloworld-application)
-3. [Configure the front end in the helloWorld sample](#configure-the-front-end-in-the-helloworld-sample)
+1. [Download the hellobluemix sample](#download-the-hellobluemix-sample)
+2. [Configure the mobile backend for your hellobluemix application](#configure-the-mobile-backend-for-your-hellobluemix-application)
+3. [Configure the front end in the hellobluemix sample](#configure-the-front-end-in-the-hellobluemix-sample)
 4. [Run the Android app](#run-the-android-app)
- 
+
 ### Before you begin
 Before you start, make sure you have the following:
 
 - A [Bluemix](http://bluemix.net) account.
-  
-### Download the helloWorld sample
+
+### Download the hellobluemix sample
 Clone the sample from IBM DevOps Services with the following command:
 
 ```bash
-git clone https://github.com/ibm-bluemix-mobile-services/bms-samples-android-helloworld
+git clone https://github.com/ibm-bluemix-mobile-services/bms-samples-android-hellobluemix
 ```
 
 If you have not done so already, at this time please acquire and install [Android Studio](https://developer.android.com/sdk/index.html).
 
-### Configure the mobile backend for your helloWorld application
-Before you can run the helloWorld application, you must set up an app on Bluemix.  The following procedure shows you how to create a MobileFirst Services Starter application. A Node.js runtime environment is created so that you can provide server-side functions, such as resource URIs and static files. The Cloudant®NoSQL DB, IBM Push Notifications, and Mobile Client Access services are then added to the app.
+### Configure the mobile backend for your hellobluemix application
+Before you can run the hellobluemix application, you must set up an app on Bluemix.  The following procedure shows you how to create a MobileFirst Services Starter application. A Node.js runtime environment is created so that you can provide server-side functions, such as resource URIs and static files. The Cloudant®NoSQL DB, IBM Push Notifications, and Mobile Client Access services are then added to the app.
 
 Create a mobile backend in the  Bluemix dashboard:
 
@@ -32,23 +32,23 @@ Create a mobile backend in the  Bluemix dashboard:
 2.	Enter a name and host for your mobile backend and click **Create**.
 3.	Click **Finish**.
 
-### Configure the front end in the HelloWorld sample
-1. Using Android Studio, open the `bms-samples-android-helloworld` directory where the project was cloned.
+### Configure the front end in the hellobluemix sample
+1. Using Android Studio, open the `bms-samples-android-hellobluemix` directory where the project was cloned.
 2. Run a Gradle sync (usually starts automatically) to import the required `core` SDK. You can view the **build.gradle** file in the following directory:
 
 	`app\build.gradle`
-	
+
 3. Once that is complete, open `MainActivity.java` and locate the try block within the ```onCreate()``` function.
-4. In the ```BMSClient.getInstance().initialize()``` function replace ```<APPLICATION_ROUTE>``` and ```<APPLICATION_ID>``` with the application route and ID you were given when creating your application on Bluemix.
+4. In the ```BMSClient.getInstance().initialize()``` function replace ```<APPLICATION_ROUTE>``` and ```<APPLICATION_ID>``` with the application route and ID you were given when creating your application on Bluemix. Update the region parameter if not using REGION_US_SOUTH (REGION_UK or REGION_SYDNEY).
 ```java
 		try {
             //initialize SDK with IBM Bluemix application ID and route
-            //TODO: Please replace <APPLICATION_ROUTE> with a valid ApplicationRoute and <APPLICATION_ID> with a valid ApplicationId
-            BMSClient.getInstance().initialize(this, "<APPLICATION_ROUTE>", "<APPLICATION_ID>");
+            //TODO: Please replace <APPLICATION_ROUTE> with a valid ApplicationRoute and <APPLICATION_ID> with a valid ApplicationId and change region appropriately
+            BMSClient.getInstance().initialize(this, "<APPLICATION_ROUTE>", "<APPLICATION_ID>", BMSClient.REGION_US_SOUTH);
         }
 ```
 
->**Note**: This sample depends on 1.+ version of the Core SDK. This means that the most recent 1.* version will be downloaded automatically. When creating a production applications it is recommended to define the version explicitly (1.0.0 for example) to ensure consistent builds.
+>**Note**: This sample depends on 2.+ version of the Core SDK. This means that the most recent 2.* version will be downloaded automatically. When creating a production applications it is recommended to define the version explicitly (2.0.0 for example) to ensure consistent builds.
 
 ### Run the Android App
 Now you can run your Android Application in your mobile emulator or on your device.
