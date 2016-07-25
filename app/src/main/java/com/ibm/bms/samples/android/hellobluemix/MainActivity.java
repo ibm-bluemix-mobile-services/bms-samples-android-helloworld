@@ -50,7 +50,7 @@ public class MainActivity extends Activity implements ResponseListener{
         try {
             //initialize SDK with IBM Bluemix application ID and route
             // You can find your backendRoute and backendGUID in the Mobile Options section on top of your Bluemix MCA dashboard
-            //TODO: Please replace <APPLICATION_ROUTE> with a valid ApplicationRoute and <APPLICATION_ID> with a valid ApplicationId and change region appropriately
+            //TODO: Please replace <APPLICATION_ROUTE> with a valid ApplicationRoute and <APPLICATION_ID> with a valid ApplicationId
             BMSClient.getInstance().initialize(this, "<APPLICATION_ROUTE>", "<APPLICATION_ID>", BMSClient.REGION_US_SOUTH);
         }
         catch (MalformedURLException mue) {
