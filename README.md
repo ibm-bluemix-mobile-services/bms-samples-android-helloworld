@@ -39,13 +39,14 @@ Create a mobile backend in the  Bluemix dashboard:
 	`app\build.gradle`
 
 3. Once that is complete, open `MainActivity.java` and locate the try block within the ```onCreate()``` function.
-4. In the ```BMSClient.getInstance().initialize()``` function replace ```<APPLICATION_ROUTE>``` and ```<APPLICATION_ID>``` with the application route and ID you were given when creating your application on Bluemix. Update the region parameter if not using REGION_US_SOUTH (REGION_UK or REGION_SYDNEY).
+4. In the ```BMSClient.getInstance().initialize()``` function replace ```<APPLICATION_ROUTE>``` and input the ```<APPLICATION_ID>``` below with the application route and ID you were given when creating your application on Bluemix. Update the region parameter if not using REGION_US_SOUTH (REGION_UK or REGION_SYDNEY).
 ```java
-		try {
-            //initialize SDK with IBM Bluemix application ID and route
-            //TODO: Please replace <APPLICATION_ROUTE> with a valid ApplicationRoute and <APPLICATION_ID> with a valid ApplicationId
-            BMSClient.getInstance().initialize(this, "<APPLICATION_ROUTE>", "<APPLICATION_ID>", BMSClient.REGION_US_SOUTH);
-        }
+		//initialize SDK with IBM Bluemix application ID and route
+		// You can find your backendRoute and backendGUID in the Mobile Options section on top of your Bluemix MCA dashboard
+		//TODO: Please replace <APPLICATION_ROUTE> with a valid ApplicationRoute and <APPLICATION_ID> with a valid ApplicationId and change region appropriately
+		BMSClient.getInstance().initialize(this, "<APPLICATION_ID>", BMSClient.REGION_US_SOUTH);
+
+		appRoute = "<APPLICATION_ROUTE>";
 ```
 
 > **Note**: If your Bluemix app is **not** hosted in US_SOUTH, be sure to update the region parameter appropriately: BMSClient.REGION_SYDNEY or BMSClient.REGION_UK.
@@ -53,7 +54,7 @@ Create a mobile backend in the  Bluemix dashboard:
 ### Run the Android App
 Now you can run your Android Application in your mobile emulator or on your device.
 
-You will see a single view application with a "PING BLUEMIX" button. When you click this button the application will test the connection from the client to the backend Bluemix application. The application uses the ApplicationRoute specified in the AppDelegate in order to test the connection. The application will then display if the connection was successful or unsuccessful. In the unsuccessful state an error will be displayed in the log as well as in the application.
+You will see a single view application with a "PING BLUEMIX" button. When you click this button the application will test the connection from the client to the backend Bluemix application. The application uses the ApplicationRoute specified in onCreate() in order to test the connection. The application will then display if the connection was successful or unsuccessful. In the unsuccessful state an error will be displayed in the log as well as in the application.
 
 >**Note**: Inside the **Main Activity** a Get request is made to the Node.js runtime on Bluemix. This code has been provided in the MobileFirst Services Starter boilerplate. If the backend application was not created using the MobileFirst Services Starter boilerplate the application will not be able to connect successfully.
 
