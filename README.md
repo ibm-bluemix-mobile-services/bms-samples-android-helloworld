@@ -43,12 +43,12 @@ Create a mobile backend in the  Bluemix dashboard:
 ```java
 		try {
             //initialize SDK with IBM Bluemix application ID and route
-            //TODO: Please replace <APPLICATION_ROUTE> with a valid ApplicationRoute and <APPLICATION_ID> with a valid ApplicationId and change region appropriately
+            //TODO: Please replace <APPLICATION_ROUTE> with a valid ApplicationRoute and <APPLICATION_ID> with a valid ApplicationId
             BMSClient.getInstance().initialize(this, "<APPLICATION_ROUTE>", "<APPLICATION_ID>", BMSClient.REGION_US_SOUTH);
         }
 ```
 
->**Note**: This sample depends on 2.+ version of the Core SDK. This means that the most recent 2.* version will be downloaded automatically. When creating a production applications it is recommended to define the version explicitly (2.0.0 for example) to ensure consistent builds.
+> **Note**: If your Bluemix app is **not** hosted in US_SOUTH, be sure to update the region parameter appropriately: BMSClient.REGION_SYDNEY or BMSClient.REGION_UK.
 
 ### Run the Android App
 Now you can run your Android Application in your mobile emulator or on your device.
