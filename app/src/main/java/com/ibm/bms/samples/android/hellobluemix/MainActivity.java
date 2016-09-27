@@ -46,13 +46,10 @@ public class MainActivity extends Activity implements ResponseListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TextView buttonText = (TextView) findViewById(R.id.button_text);
-
-        //initialize SDK with IBM Bluemix application ID and route
+        // initialize SDK with IBM Bluemix application region, add Bluemix application route for connectivity testing
         // You can find your backendRoute and backendGUID in the Mobile Options section on top of your Bluemix MCA dashboard
-        //TODO: Please replace <APPLICATION_ROUTE> with a valid ApplicationRoute and <APPLICATION_ID> with a valid ApplicationId and change region appropriately
-        BMSClient.getInstance().initialize(this, "<APPLICATION_ID>", BMSClient.REGION_US_SOUTH);
-
+        // TODO: Please replace <APPLICATION_ROUTE> with a valid ApplicationRoute and change region appropriately
+        BMSClient.getInstance().initialize(this, BMSClient.REGION_US_SOUTH);
         appRoute = "<APPLICATION_ROUTE>";
     }
 
