@@ -39,13 +39,12 @@ Create a mobile backend in the  Bluemix dashboard:
 	`app\build.gradle`
 
 3. Once that is complete, open `MainActivity.java` and locate the try block within the ```onCreate()``` function.
-4. In the ```BMSClient.getInstance().initialize()``` function replace ```<APPLICATION_ROUTE>``` and input the ```<APPLICATION_ID>``` below with the application route and ID you were given when creating your application on Bluemix. Update the region parameter if not using REGION_US_SOUTH (REGION_UK or REGION_SYDNEY).
+4. In the ```BMSClient.getInstance().initialize()``` function replace ```<APPLICATION_ROUTE>``` below with the application route you were given when creating your application on Bluemix. Update the region parameter if not using REGION_US_SOUTH (REGION_UK or REGION_SYDNEY).
 ```java
-		//initialize SDK with IBM Bluemix application ID and route
-		// You can find your backendRoute and backendGUID in the Mobile Options section on top of your Bluemix MCA dashboard
-		//TODO: Please replace <APPLICATION_ROUTE> with a valid ApplicationRoute and <APPLICATION_ID> with a valid ApplicationId and change region appropriately
-		BMSClient.getInstance().initialize(this, "<APPLICATION_ID>", BMSClient.REGION_US_SOUTH);
-
+		// Initialize SDK with IBM Bluemix application route
+		// You can find your backendRoute in the Mobile Options section on top of your Bluemix MCA dashboard
+		// TODO: Please replace <APPLICATION_ROUTE> with a valid ApplicationRoute and change region appropriately
+		BMSClient.getInstance().initialize(this, BMSClient.REGION_US_SOUTH);
 		appRoute = "<APPLICATION_ROUTE>";
 ```
 
