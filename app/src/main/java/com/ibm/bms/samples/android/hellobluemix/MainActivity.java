@@ -30,7 +30,6 @@ import org.json.JSONObject;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.net.MalformedURLException;
 import java.net.UnknownHostException;
 
 /**
@@ -40,23 +39,18 @@ public class MainActivity extends Activity implements ResponseListener{
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
+    private String appRoute; // Application URL needed to test connectivity i.e. yourAppName.mybluemix.net
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TextView buttonText = (TextView) findViewById(R.id.button_text);
-
-        try {
-            //initialize SDK with IBM Bluemix application ID and route
-            // You can find your backendRoute and backendGUID in the Mobile Options section on top of your Bluemix MCA dashboard
-            //TODO: Please replace <APPLICATION_ROUTE> with a valid ApplicationRoute and <APPLICATION_ID> with a valid ApplicationId
-            BMSClient.getInstance().initialize(this, "<APPLICATION_ROUTE>", "<APPLICATION_ID>", BMSClient.REGION_US_SOUTH);
-        }
-        catch (MalformedURLException mue) {
-            this.setStatus("Unable to parse Application Route URL\n Please verify you have entered your Application Route and Id correctly and rebuild the app", false);
-            buttonText.setClickable(false);
-        }
+        // initialize SDK with IBM Bluemix application region, add Bluemix application route for connectivity testing
+        // You can find your backendRoute and backendGUID in the Mobile Options section on top of your Bluemix MCA dashboard
+        // TODO: Please replace <APPLICATION_ROUTE> with a valid ApplicationRoute and change region appropriately
+        BMSClient.getInstance().initialize(this, BMSClient.REGION_US_SOUTH);
+        appRoute = "<APPLICATION_ROUTE>";
     }
 
     /**
@@ -77,9 +71,9 @@ public class MainActivity extends Activity implements ResponseListener{
         Log.i(TAG, "Attempting to Connect");
 
         // Testing the connection to Bluemix by sending a Get request to the Node.js application. This Node.js code was provided in the MobileFirst Services Starter boilerplate.
-        // The below 'Request' uses the core sdk to send the REST request using the applicationRoute that was provided when initializing the BMSClient earlier.
+        // The below 'Request' uses the core sdk to send the REST request using the applicationRoute that was provided earlier.
         // Since this MainActivity class implements the ResponseListener interface, we can pass 'this' as one of the send() parameters to handle the response.
-        new Request(BMSClient.getInstance().getBluemixAppRoute(), Request.GET).send(this, this);
+        new Request(appRoute, Request.GET).send(this, this);
     }
 
     // Success handler called when successful response from Bluemix is received
@@ -96,7 +90,7 @@ public class MainActivity extends Activity implements ResponseListener{
 
         if (response != null) {
             if (response.getStatus() == 404) {
-                errorMessage += "Application Route not found at:\n" + BMSClient.getInstance().getBluemixAppRoute() +
+                errorMessage += "Application Route not found at:\n" + appRoute +
                         "\nPlease verify your Application Route and rebuild the app.";
             } else {
                 errorMessage += response.toString() + "\n";
@@ -125,7 +119,7 @@ public class MainActivity extends Activity implements ResponseListener{
         Log.e(TAG, "Get request to Bluemix failed: " + errorMessage);
     }
 
-	/**
+    /**
      * Updates text fields in the UI
      * @param errorText error String that displays in center text box
      * @param wasSuccessful Boolean that decides appropriate success vs failure text to display
